@@ -9,7 +9,7 @@ const MU =
   "https://robinhoodchain.blockscout.com/token/0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD";
 const X = "https://x.com/midoge_mu";
 const LONG = "https://long.xyz";
-const CA = "";
+const CA = "0x3646af10a9cb53faf1154bda8bfbe8b0d74e1e18";
 
 const STOPS = [
   {
@@ -56,7 +56,7 @@ function CaBox() {
         {live ? CA : "Waiting on the LONG mint"}
       </p>
       <div className="mt-3 flex items-center justify-between gap-3">
-        <p className="text-sm text-muted">No invented address. This box fills when the mint lands.</p>
+        <p className="text-sm text-muted">Tap copy. That is the mint.</p>
         <button
           type="button"
           onClick={copy}
