@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07080c;
+  --color-ink: #f4efe6;
+  --color-muted: #9a9488;
+  --color-line: #2a2c36;
+  --color-amber: #e8a04a;
+  --color-cyan: #3ec8e0;
+  --color-card: #12141a;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background:
+      radial-gradient(ellipse 80% 40% at 80% -10%, color-mix(in oklab, var(--color-amber) 18%, transparent), transparent 55%),
+      radial-gradient(ellipse 50% 30% at 0% 20%, color-mix(in oklab, var(--color-cyan) 10%, transparent), transparent 50%),
+      var(--color-bg);
+  }
+
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-bg);
+  }
+}
+
+.pet {
+  transform: rotate(-1.5deg) scale(1.02);
+  transition: transform 180ms ease;
+}
+
+@keyframes midoge-scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(400%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-line {
+    animation: none !important;
+  }
+}
