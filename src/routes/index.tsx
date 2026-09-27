@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Minus, Plus } from "lucide-react";
+import { ArrowUpRight, Copy, Minus, Plus } from "lucide-react";
+import { SiteHeader } from "@/components/site-header";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -8,6 +9,7 @@ const MU =
   "https://robinhoodchain.blockscout.com/token/0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD";
 const X = "https://x.com/midoge_mu";
 const LONG = "https://long.xyz";
+const CA = "";
 
 const STOPS = [
   {
@@ -36,6 +38,39 @@ const STOPS = [
   },
 ] as const;
 
+function CaBox() {
+  const [copied, setCopied] = useState(false);
+  const live = CA.length > 0;
+
+  async function copy() {
+    if (!live) return;
+    await navigator.clipboard.writeText(CA);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1200);
+  }
+
+  return (
+    <div className="mt-8 max-w-md rounded-card border border-line bg-card p-4">
+      <p className="text-xs tracking-widest text-cyan">CONTRACT</p>
+      <p className="mt-2 break-all font-display text-xl font-bold text-ink">
+        {live ? CA : "Waiting on the LONG mint"}
+      </p>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <p className="text-sm text-muted">No invented address. This box fills when the mint lands.</p>
+        <button
+          type="button"
+          onClick={copy}
+          disabled={!live}
+          className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-line px-4 text-sm text-ink disabled:opacity-40"
+        >
+          <Copy className="size-4" aria-hidden="true" />
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   const [stop, setStop] = useState(1);
   const [scratches, setScratches] = useState(0);
@@ -57,29 +92,7 @@ function Home() {
 
   return (
     <main className="mx-auto max-w-6xl px-5 pb-20 pt-5 sm:px-8">
-      <header className="flex items-center justify-between gap-4 py-3">
-        <a href="#top" className="font-display text-lg font-extrabold tracking-tight text-ink">
-          MICRO DOGE
-        </a>
-        <nav className="flex items-center gap-2 text-sm">
-          <a
-            href={X}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-line px-4 py-2 text-ink hover:border-amber"
-          >
-            @midoge_mu
-          </a>
-          <a
-            href={LONG}
-            target="_blank"
-            rel="noreferrer"
-            className="hidden rounded-full bg-amber px-4 py-2 font-medium text-bg sm:inline"
-          >
-            LONG
-          </a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <section id="top" className="grid items-center gap-10 py-10 lg:grid-cols-2 lg:py-16">
         <div>
@@ -111,7 +124,7 @@ function Home() {
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </a>
           </div>
-          <p className="mt-4 text-sm text-muted">Contract address lands when LONG mints it. This page will not invent one.</p>
+          <CaBox />
         </div>
         <figure className="relative">
           <img
